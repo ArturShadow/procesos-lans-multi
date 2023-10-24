@@ -1,0 +1,25 @@
+@using Database
+@model List<Empleado>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <th>@Html.DisplayForModel("idEmpleado")</th>
+            <th>Name</th>
+        </thead>
+
+        <tbody>
+            @foreach (var empleado in Model)
+            {
+                <tr>@Html.DisplayFor(m => empleado.idEmpleado)</tr>
+                <tr>@Html.DisplayFor(m => empleado.Nombre)</tr>
+                <tr>@Html.DisplayFor(m => empleado.Rol.Nombre)</tr>
+            }
+        </tbody>
+    </table>
+</div>

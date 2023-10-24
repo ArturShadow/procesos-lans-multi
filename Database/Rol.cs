@@ -13,6 +13,6 @@ namespace Database
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idRol { get; set; }
         public string? Nombre { get; set; }
-        public virtual ICollection<Empleado> Empleados { get; set;}
+        public virtual ICollection<Empleado>? Empleados { get; set;}
     }
 }

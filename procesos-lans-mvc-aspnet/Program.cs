@@ -6,16 +6,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<LansContext>(options => 
-options.UseSqlServer(builder.Configuration.GetConnectionString("LANS")));
+builder.Services.AddDbContext<LansContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LANS"));
+});
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<LansContext>();
-    context.Database.Migrate(); 
-}
+// using (var scope = app.Services.CreateScope())
+// {
+//     var context = scope.ServiceProvider.GetRequiredService<LansContext>();
+//     context.Database.Migrate();
+// }
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -1,0 +1,31 @@
+@using procesos_lans_mvc_aspnet.Models.ViewModel
+@model EmpleadoViewModel
+@{
+    ViewData["Title"] = "Guardar";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    @using (Html.BeginForm("Guardar", "Empleado", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-6 input-group">
+                <label asp-for="Nombre"></label>
+                <input type="text" asp-for="Nombre">
+                <span asp-validation-for="Nombre"></span>
+            </div>
+            <div class="col-6 input-group">
+                <label asp-for="idRol"></label>
+                <input type="text" asp-for="idRol">
+                <span asp-validation-for="idRol"></span>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("../Shared/_ValidationScriptsPartial.cshtml");
+    }
+}

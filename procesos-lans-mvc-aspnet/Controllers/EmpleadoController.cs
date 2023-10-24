@@ -7,32 +7,46 @@ using System.Threading.Tasks;
 using Database;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+
+using procesos_lans_mvc_aspnet.Models.ViewModel;
 
 namespace procesos_lans_mvc_aspnet.Controllers
 {
     [Route("[controller]")]
     public class EmpleadoController : Controller
     {
-        private readonly ILogger<EmpleadoController> _logger;
         private readonly LansContext _context;
 
-        public EmpleadoController(ILogger<EmpleadoController> logger, LansContext context)
+        public EmpleadoController(LansContext context)
         {
-            _logger = logger;
             _context = context;
         }
 
         public IActionResult Index()
         {
-            // _context.
-            return View();
+            var empleados = _context.Empleados.Include(e => e.Rol).ToList();
+            return View(empleados);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Guardar()
         {
-            return View("Error!");
+            var roles = new SelectList(_context.Roles.ToList(), "idRol", "Nombre");
+            ViewData["roles"] = roles;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Guardar(EmpleadoViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var roles = new SelectList(_context.Roles.ToList(), "idRol", "Nombre");
+                ViewData["roles"] = roles;
+                return View(model);
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

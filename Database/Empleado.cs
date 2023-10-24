@@ -12,6 +12,7 @@ namespace Database
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idEmpleado { get; set; }
+        public int Nombre { get; set; }
         
 
         /**
